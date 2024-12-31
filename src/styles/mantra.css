@@ -1,0 +1,49 @@
+.mantra {
+  width: 50vw;
+  height: 50px;
+  font-weight: 500;
+  font-size: 15px;
+  font-style: italic;
+  text-align: center;
+  color: white;
+
+  position: absolute;
+  left: 50%;
+  bottom: 5px;
+  transform: translate(-50%);
+
+  width: 400px;
+}
+
+@media(max-width: 600px) {
+  .mantra {
+    max-width: 360px;
+  }
+}
+
+.mantra:hover .mantra-author {
+  opacity: 1;
+  bottom: 5px;
+}
+
+.mantra:hover .mantra-text {
+  bottom: 25px;
+}
+
+.mantra-text {
+  position: absolute;
+  bottom: 0;
+  transition: .3s;
+}
+
+
+.mantra-author {
+  font-style: normal;
+  color: #dfe6e9;
+  opacity: 0;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+  transition: .3s;
+}
