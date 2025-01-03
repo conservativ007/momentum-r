@@ -41,25 +41,25 @@ const ForecastDaily = () => {
     <div className="w-full absolute top-[120px] right-0 text-white">
       <Swiper
         spaceBetween={2}
-        centeredSlides={true}
+        centeredSlides={false}
         autoHeight={false}
         // slidesPerView={4.5}
-        loop={true}
+        loop={false}
         breakpoints={{
           // when window width is >= 320px
           320: {
-            slidesPerView: 4,
+            slidesPerView: 4.2,
             spaceBetween: 10,
             loop: true,
           },
           // when window width is >= 480px
           480: {
-            slidesPerView: 5,
+            slidesPerView: 5.5,
             spaceBetween: 4,
           },
           // when window width is >= 640px
           640: {
-            slidesPerView: 7,
+            slidesPerView: 7.5,
             spaceBetween: 4,
           },
           1023: {
@@ -76,7 +76,7 @@ const ForecastDaily = () => {
         speed={800}
       >
         {cityForecast.map((item, index) => {
-          const { avgtemp_c, maxtemp_c, mintemp_c } = item.day;
+          const { maxtemp_c, mintemp_c } = item.day;
           const { date } = item;
           const dayOfWeek = getDayOfWeek(date);
 
@@ -92,7 +92,7 @@ const ForecastDaily = () => {
             <SwiperSlide key={index}>
               <div
                 style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
-                className="lg:max-w-[70px] w-full px-1 py-[2px] flex flex-col items-center text-center bg-black text-white border border-white rounded-[10px]"
+                className="lg:max-w-[90px] w-full px-1 py-[2px] flex flex-col items-center text-center bg-black text-white border border-white rounded-[10px]"
               >
                 <p className="text-[14px]">{dayOfTheMonth}</p>
                 <p>{dayOfWeek}</p>

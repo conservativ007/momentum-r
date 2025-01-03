@@ -12,7 +12,7 @@ export const fetchDailyForecast = async (cityName) => {
 
   console.log("data from API");
   const KEY = "bf677b264ac04013a0990631242512";
-  const URL = `https://api.weatherapi.com/v1/forecast.json?key=${KEY}&q=${cityName}&days=15&aqi=no&alerts=no`;
+  const URL = `https://api.weatherapi.com/v1/forecast.json?key=${KEY}&q=${cityName}&days=18&aqi=no&alerts=no`;
 
   try {
     const response = await axios.get(URL);

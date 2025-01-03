@@ -3,7 +3,6 @@ import BackgroundImage from "./BackgroundImage";
 import Time from "./Time";
 import WeatherForCurrentDay from "./WeatherForCurrentDay";
 import Welcome from "./Welcome";
-import Mantra from "./Mantra";
 import ForecastDaily from "./ForecastDaily";
 
 function App() {
@@ -26,7 +25,6 @@ function App() {
       <Time />
       <WeatherForCurrentDay />
       <ForecastDaily />
-      {/* <Mantra /> */}
     </>
   );
 }
