@@ -24,11 +24,14 @@ const BackgroundImage = () => {
   }, []);
 
   return (
-    <div className="background h-full">
+    <div className="background h-full overflow-y-hidden">
       <div
-        className="background-image h-[100vh] w-full"
+        className="w-full"
         style={{
-          backgroundImage: imageSrc ? `url(${imageSrc})` : "none", // Устанавливаем фон, если изображение загружено
+          height: "calc(100vh - env(safe-area-inset-top))", // Высота без адресной строки
+          backgroundImage: imageSrc ? `url(${imageSrc})` : "none",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       ></div>
     </div>

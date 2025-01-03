@@ -2,62 +2,116 @@ import { useEffect, useState } from "react";
 import { getYourCityData } from "../utils/getYourCity";
 
 import { fetchDailyForecast } from "../utils/getYourForecast";
+import { getDayOfWeek } from "../utils/getDayOfWeek";
+import { checkNumber } from "../utils/checkNumber";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
 
 const ForecastDaily = () => {
-  const data = JSON.parse(getYourCityData());
   const [cityForecast, setCityForecast] = useState();
 
-  const { name } = data;
-  //   fetchDailyForecast(name);
-  //   console.log(name);
-
-  //   const fetchCurrentWeather = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `https://api.openweathermap.org/data/2.5/weather?lat=${cityData.lat}&lon=${cityData.lon}&appid=7750e825906fd8d6afa1ee1dcb595e18&units=metric`
-  //       );
-  //       //   setActiveDay(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching current weather:", error);
-  //     }
-  //   };
-
   useEffect(() => {
-    // fetchCurrentWeather();
-    // fetchDailyForecast(name);
-    const promise = fetchDailyForecast(name);
-    promise.then((data) => {
-      //   console.log(data);
-      if (data) {
-        const { forecastday } = JSON.parse(data);
-        setCityForecast(forecastday);
-        // console.log(forecastday);
+    const fetchCityData = async () => {
+      try {
+        // get coordinates of your city, name of city
+        const data = await getYourCityData();
+        // get daily forecast of your city
+        const dailyForecast = await fetchDailyForecast(data.name);
+        setCityForecast(dailyForecast.forecastday);
+      } catch (error) {
+        console.error("Ошибка при получении данных о городе:", error);
       }
-      //
-    });
-  }, [fetchDailyForecast, name]);
+    };
 
-  //   useEffect(() => {
-  //     if (!cityForecast) return;
-  //     console.log(cityForecast);
-  //   }, [cityForecast]);
+    fetchCityData();
+  }, []);
 
-  //   console.log(cityForecast);
+  if (!cityForecast) {
+    return (
+      <div className="w-full absolute top-[120px] right-0">
+        <p>Загрузка...</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="w-full absolute top-[120px] right-0">
-      <div className="w-full h-[100px] flex justify-between items-center">
-        {cityForecast &&
-          cityForecast.map((item, index) => {
-            const { avgtemp_c, maxtemp_c, mintemp_c } = item.day;
-            console.log(avgtemp_c, maxtemp_c, mintemp_c);
-            return (
-              <div key={index} className="w-full text-center">
-                <p>{avgtemp_c}</p>
+    <div className="w-full absolute top-[120px] right-0 text-white">
+      <Swiper
+        spaceBetween={2}
+        centeredSlides={true}
+        autoHeight={false}
+        // slidesPerView={4.5}
+        loop={true}
+        breakpoints={{
+          // when window width is >= 320px
+          320: {
+            slidesPerView: 4,
+            spaceBetween: 10,
+            loop: true,
+          },
+          // when window width is >= 480px
+          480: {
+            slidesPerView: 5,
+            spaceBetween: 4,
+          },
+          // when window width is >= 640px
+          640: {
+            slidesPerView: 7,
+            spaceBetween: 4,
+          },
+          1023: {
+            slidesPerView: 10,
+            spaceBetween: 4,
+          },
+          1399: {
+            slidesPerView: 15,
+            spaceBetween: 4,
+          },
+        }}
+        // className="swiperFull cursor-default overflow-hidden !py-2"
+        className="w-full h-full"
+        speed={800}
+      >
+        {cityForecast.map((item, index) => {
+          const { avgtemp_c, maxtemp_c, mintemp_c } = item.day;
+          const { date } = item;
+          const dayOfWeek = getDayOfWeek(date);
+
+          let dayOfTheMonth = item.date.slice(-5);
+          dayOfTheMonth = dayOfTheMonth.replace("-", ".");
+
+          let correctMaxtemp_c = checkNumber(Math.round(maxtemp_c));
+          let correctMintemp_c = checkNumber(Math.round(mintemp_c));
+
+          const { icon } = item.day.condition;
+
+          return (
+            <SwiperSlide key={index}>
+              <div
+                style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+                className="lg:max-w-[70px] w-full px-1 py-[2px] flex flex-col items-center text-center bg-black text-white border border-white rounded-[10px]"
+              >
+                <p className="text-[14px]">{dayOfTheMonth}</p>
+                <p>{dayOfWeek}</p>
+                <img
+                  src={`https:${icon}`}
+                  alt="Weather Icon"
+                  className="w-10 h-10"
+                />
+                {/* <p>{avgtemp_c}</p> */}
+                <div className="w-full flex justify-center space-x-2">
+                  <p>{correctMaxtemp_c}</p>
+                  <p>{correctMintemp_c}</p>
+                </div>
               </div>
-            );
-          })}
-      </div>
+            </SwiperSlide>
+            // <SwiperSlide key={index}>Slide 1</SwiperSlide>
+          );
+        })}
+      </Swiper>
     </div>
   );
 };

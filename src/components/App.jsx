@@ -1,7 +1,7 @@
 import { useState } from "react";
 import BackgroundImage from "./BackgroundImage";
 import Time from "./Time";
-import Weather from "./Weather";
+import WeatherForCurrentDay from "./WeatherForCurrentDay";
 import Welcome from "./Welcome";
 import Mantra from "./Mantra";
 import ForecastDaily from "./ForecastDaily";
@@ -24,9 +24,9 @@ function App() {
     <>
       <BackgroundImage />
       <Time />
-      <Weather />
+      <WeatherForCurrentDay />
       <ForecastDaily />
-      <Mantra />
+      {/* <Mantra /> */}
     </>
   );
 }

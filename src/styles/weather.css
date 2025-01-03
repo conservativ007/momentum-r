@@ -2,8 +2,8 @@
   position: absolute;
   z-index: 1;
   color: white;
-  top: 10px;
-  right: 10px;
+  top: -1px;
+  right: -1px;
 
   cursor: pointer;
 }
@@ -45,12 +45,12 @@
   color: #222;
   cursor: default;
 
-  transition: .5s;
+  transition: 0.5s;
   opacity: 0;
 }
 
 .weather-forecast::after {
-  content: '';
+  content: "";
   position: absolute;
   right: 37px;
   top: -20px;
@@ -66,7 +66,6 @@
 .current-day__description:hover .current-day__description-edit {
   display: block;
 }
-
 
 .current-day__description-week {
   margin-left: 10px;
@@ -111,7 +110,6 @@
   background-color: #dfe6e9;
 }
 
-
 .weather-forecast__future {
   margin-top: 10px;
   display: flex;
@@ -128,7 +126,7 @@
   align-items: center;
 }
 
-@media(max-width: 600px) {
+@media (max-width: 600px) {
   .weather-forecast__future-days {
     padding: 5px 10px;
   }
@@ -143,9 +141,8 @@
 }
 
 .weather-forecast__future-days:hover {
-  background-color: rgba(0, 0, 0, .1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
-
 
 .future-days__day {
   font-size: 14px;
@@ -198,7 +195,6 @@
   margin-left: 5px;
 }
 
-
 .active {
-  background-color: rgba(0, 0, 0, .1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
